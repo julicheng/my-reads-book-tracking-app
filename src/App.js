@@ -7,8 +7,7 @@ import Shelf from "./Shelf";
 
 class BooksApp extends React.Component {
   state = {
-    books: [],
-    searchedBooks: []
+    books: []
   };
 
   componentDidMount() {
@@ -31,11 +30,17 @@ class BooksApp extends React.Component {
   };
 
   render() {
-    console.log(this.state.books);
-
     return (
       <div className="app">
-        <Route path="/search" render={() => <Search />} />
+        <Route
+          path="/search"
+          render={() => (
+            <Search
+              handleShelfChange={this.handleShelfChange}
+              books={this.state.books}
+            />
+          )}
+        />
         <Route
           exact
           path="/"

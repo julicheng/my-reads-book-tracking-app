@@ -3,6 +3,12 @@ import ChangeShelf from "./ChangeShelf";
 
 class Book extends Component {
   render() {
+    let bookCover = this.props.book.imageLinks;
+    if (bookCover) {
+      bookCover = this.props.book.imageLinks.thumbnail;
+    } else {
+      bookCover = "";
+    }
     return (
       <div className="book">
         <div className="book-top">
@@ -11,9 +17,7 @@ class Book extends Component {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${
-                this.props.book.imageLinks.smallThumbnail
-              })`
+              backgroundImage: `url(${bookCover})`
             }}
           />
           <ChangeShelf
