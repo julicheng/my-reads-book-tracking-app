@@ -8,11 +8,31 @@ import Shelf from "./Shelf";
 class BooksApp extends React.Component {
   state = {
     books: [],
-    updatedBook: [],
     searchedBooks: []
   };
 
+  componentDidMount() {
+    BooksAPI.getAll().then(books => {
+      this.setState({ books });
+    });
+  }
+
+  handleBooksForShelving = shelf => {
+    let shelfBooks = this.state.books.filter(book => book.shelf === shelf);
+    return shelfBooks;
+  };
+
+  handleShelfChange = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(response => {
+      BooksAPI.getAll().then(books => {
+        this.setState({ books });
+      });
+    });
+  };
+
   render() {
+    console.log(this.state.books);
+
     return (
       <div className="app">
         <Route path="/search" render={() => <Search />} />
@@ -26,9 +46,21 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                 <div>
-                  <Shelf title="Currently Reading" />
-                  <Shelf title="Want to Read" />
-                  <Shelf title="Read" />
+                  <Shelf
+                    title="Currently Reading"
+                    books={this.handleBooksForShelving("currentlyReading")}
+                    handleShelfChange={this.handleShelfChange}
+                  />
+                  <Shelf
+                    title="Want to Read"
+                    books={this.handleBooksForShelving("wantToRead")}
+                    handleShelfChange={this.handleShelfChange}
+                  />
+                  <Shelf
+                    title="Read"
+                    books={this.handleBooksForShelving("read")}
+                    handleShelfChange={this.handleShelfChange}
+                  />
                 </div>
               </div>
               <div className="open-search">

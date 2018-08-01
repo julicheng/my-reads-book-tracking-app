@@ -2,16 +2,20 @@ import React, { Component } from "react";
 import Book from "./Book";
 
 class Shelf extends Component {
-  state = {};
   render() {
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.title}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            <li>
-              <Book />
-            </li>
+            {this.props.books.map(book => (
+              <li key={book.id}>
+                <Book
+                  book={book}
+                  handleShelfChange={this.props.handleShelfChange}
+                />
+              </li>
+            ))}
           </ol>
         </div>
       </div>

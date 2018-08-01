@@ -5,7 +5,12 @@ class ChangeShelf extends Component {
   render() {
     return (
       <div className="book-shelf-changer">
-        <select>
+        <select
+          value={this.props.book.shelf}
+          onChange={event =>
+            this.props.handleShelfChange(this.props.book, event.target.value)
+          }
+        >
           <option value="move" disabled>
             Move to...
           </option>

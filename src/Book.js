@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ChangeShelf from "./ChangeShelf";
 
 class Book extends Component {
-  state = {};
   render() {
     return (
       <div className="book">
@@ -12,13 +11,18 @@ class Book extends Component {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: "url()"
+              backgroundImage: `url(${
+                this.props.book.imageLinks.smallThumbnail
+              })`
             }}
           />
-          <ChangeShelf />
+          <ChangeShelf
+            book={this.props.book}
+            handleShelfChange={this.props.handleShelfChange}
+          />
         </div>
-        <div className="book-title" />
-        <div className="book-authors" />
+        <div className="book-title">{this.props.book.title}</div>
+        <div className="book-authors">{this.props.book.authors}</div>
       </div>
     );
   }
